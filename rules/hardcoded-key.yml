@@ -1,0 +1,12 @@
+rules:
+  - id: hardcoded-api-key
+    languages: [python]
+    severity: ERROR
+    message: "Segredo hardcoded. Use os.environ ou um cofre de segredos."
+    metadata:
+      cwe: "CWE-798"
+    patterns:
+      - pattern: $VAR = "..."
+      - metavariable-regex:
+          metavariable: $VAR
+          regex: (?i).*(api_?key|secret|token|passw(or)?d).*
