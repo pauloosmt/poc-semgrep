@@ -6,7 +6,10 @@ rules:
     metadata:
       cwe: "CWE-798"
     patterns:
-      - pattern: $VAR = "..."
+      - pattern: $VAR = $VALUE
       - metavariable-regex:
           metavariable: $VAR
           regex: (?i).*(api_?key|secret|token|passw(or)?d).*
+      - metavariable-regex:
+          metavariable: $VALUE
+          regex: ^["'](?=.*\d).{8,}["']$
