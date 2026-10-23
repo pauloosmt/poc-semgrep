@@ -1,6 +1,6 @@
 # PoC: Detecção de vulnerabilidades em código-fonte com Semgrep (SAST)
 
-![Semgrep](https://github.com/SEU-USUARIO/poc-semgrep-sast/actions/workflows/semgrep.yml/badge.svg)
+   ![Semgrep](https://github.com/pauloosmt/poc-semgrep-sast/actions/workflows/semgrep.yml/badge.svg)
 
 Prova de conceito do trabalho de **Prospecção Tecnológica (2026-2)**.
 Autor: Paulo Sergio Mendes Taciano
