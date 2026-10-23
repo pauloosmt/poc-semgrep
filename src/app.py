@@ -1,10 +1,11 @@
+import os
 import sqlite3
-from flask import Flask, request
+from flask import Flask, request, render_template_string
 
 app = Flask(__name__)
 
-# FALHA 3: segredo hardcoded (valor FALSO)
-API_KEY = "sk-fake-1234567890abcdef"
+# CORREÇÃO 3: segredo vem do ambiente, não do código
+API_KEY = os.environ.get("API_KEY")
 
 def get_db():
     return sqlite3.connect("app.db")
@@ -13,12 +14,12 @@ def get_db():
 def buscar_usuario():
     nome = request.args.get("nome", "")
     cur = get_db().cursor()
-    # FALHA 1: SQL Injection (entrada colada na query)
-    cur.execute(f"SELECT * FROM users WHERE name = '{nome}'")
+    # CORREÇÃO 1: query parametrizada
+    cur.execute("SELECT * FROM users WHERE name = ?", (nome,))
     return str(cur.fetchall())
 
 @app.route("/ola")
 def ola():
     nome = request.args.get("nome", "")
-    # FALHA 2: XSS (entrada devolvida sem escape)
-    return "<h1>Olá, " + nome + "!</h1>"
+    # CORREÇÃO 2: template com escape automático
+    return render_template_string("<h1>Olá, {{ nome }}!</h1>", nome=nome)
